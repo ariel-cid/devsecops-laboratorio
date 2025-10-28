@@ -15,9 +15,11 @@ jobs:
       - name: Validating existence of project in Sonarcloud
         id: validate-project-sonar
         run: |
+          set +e
           curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'organization=curso-seguridad-usach' -d 'project=${{ github.event.repository.name }}' -d 'visibility=public' 
           if [ $? -ne 0 ]; then
             echo "Proyecto ya existe en SonarCloud"
+            echo "::set-output name=proyectoExiste::1"
           else
             echo "Proyecto ${{ github.event.repository.name }} creado exitosamente en Sonarcloud"
             echo "Se establece rama main por omisión"
