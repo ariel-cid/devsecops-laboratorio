@@ -51,5 +51,5 @@ jobs:
             -Dsonar.projectKey=${{ github.event.repository.name }}\
             -Dsonar.organization=curso-seguridad-usach\
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}\
             -Dsonar.branch.name=main
