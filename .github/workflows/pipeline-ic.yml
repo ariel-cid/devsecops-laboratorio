@@ -45,10 +45,10 @@ jobs:
             echo "Tipo de proyecto no soportado"
             exit 1
           fi
-      - name: Ejecutando Sonarcloud
+      - name: Executing Sonarcloud
         run: |
           npx sonar-scanner \
-            -Dsonar.projectKey=${{ github.event.repository.name }}-curso-seguridad-usach\
+            -Dsonar.projectKey=${{ github.event.repository.name }}\
             -Dsonar.organization=curso-seguridad-usach\
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
