@@ -29,7 +29,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
       - name: Install dependencies
         run: npm ci
       - name: Build project
@@ -45,3 +45,11 @@ jobs:
             echo "Tipo de proyecto no soportado"
             exit 1
           fi
+      - name: Ejecutando Sonarcloud
+        run: |
+          npx sonar-scanner \
+            -Dsonar.projectKey=${{ github.event.repository.name }}-curso-seguridad-usach\
+            -Dsonar.organization=curso-seguridad-usach\
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.branch.name=main
