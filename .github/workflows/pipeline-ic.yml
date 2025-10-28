@@ -21,6 +21,7 @@ jobs:
           curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'organization=curso-seguridad-usach' -d 'project=${{ github.event.repository.name }}' -d 'visibility=public' 
           if [ $? -eq 0 ]; then
             echo "Proyecto creado exitosamente en Sonarcloud"
+            curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}'
           else
             echo "Proyecto ya creado en Sonarcloud o error detectado durante la creación"
           fi
