@@ -1,4 +1,4 @@
-name: workflow
+name: Lab Final Workflow
 on:
   push:
     branches:
@@ -22,20 +22,10 @@ jobs:
 #            echo "Proyecto creado exitosamente en Sonarcloud"
 #            curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}'
 #          fi
-      - name: Validating project type
-        id: validate-project-type
-        run: |
-        
-          if [ -f "package.json" ]; then
-            echo "Proyecto Node.js"
-            echo "NODEJS=true" >> $GITHUB_ENV
-          else
-            echo "Tipo de proyecto no soportado"
-            exit 1
-          fi
+
       - name: Checkout Code
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -48,4 +38,16 @@ jobs:
         run: npm run build
 
       - name: Run tests with coverage
-        run: npm run test -- --coverage          
+        run: npm run test -- --coverage
+        
+      - name: Validating project type
+        id: validate-project-type
+        run: |
+        
+          if [ -f "package.json" ]; then
+            echo "Proyecto Node.js"
+            echo "NODEJS=true" >> $GITHUB_ENV
+          else
+            echo "Tipo de proyecto no soportado"
+            exit 1
+          fi
