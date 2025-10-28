@@ -11,14 +11,15 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v3
       
-      - name: welcome title
+      - name: Welcome Title
         run: |
           echo "Curso DevSecOps"
           echo "Laboratorio Final"
-      - name: validating existence of project in Sonarcloud
+      - name: Validating existence of project in Sonarcloud
         id: validate-project-sonar
         run: |
           curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'organization=curso-seguridad-usach' -d 'project=${{ github.event.repository.name }}' -d 'visibility=public' 
+          
           if [ $? -eq 0 ]; then
             echo "Proyecto creado exitosamente en Sonarcloud"
             curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}'
