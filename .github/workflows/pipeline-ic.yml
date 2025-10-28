@@ -29,7 +29,7 @@ jobs:
         id: validate-project-type
         run: |
         
-          if [ -f "package.json " ]; then
+          if [ -f "package.json" ]; then
             echo "Proyecto Node.js"
             echo "NODEJS=true" >> $GITHUB_ENV
           else
