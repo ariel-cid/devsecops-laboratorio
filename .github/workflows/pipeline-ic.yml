@@ -48,5 +48,5 @@ jobs:
 
       - name: Validating Sonarcloud results
         run: |
-          issues=${curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search' -d 'branch=main' -d='componentKeys=${{ github.event.repository.name }}' -d 'facets=severities'} 
+          issues=$(curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search' -d 'branch=main' -d='componentKeys=${{ github.event.repository.name }}' -d 'facets=severities')
           echo "Results: $issues"
