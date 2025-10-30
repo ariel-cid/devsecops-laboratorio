@@ -37,17 +37,8 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
-      - name: Validating project type
-        id: validate-project-type
-        run: |
-        
-          if [ -f "package.json" ]; then
-            echo "Proyecto Node.js"
-            echo "NODEJS=true" >> $GITHUB_ENV
-          else
-            echo "Tipo de proyecto no soportado"
-            exit 1
-          fi
+      - name: Run tests
+        run: npm test
       - name: Executing Sonarcloud
         run: |
           npx sonar-scanner \
