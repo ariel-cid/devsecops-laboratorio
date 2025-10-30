@@ -53,7 +53,7 @@ jobs:
           issues=$severities | jq 'select(.val=="BLOCKER" or .val=="CRITICAL" or .val=="MAJOR")'
           blocker=$(echo $issues | jq 'select(.val=="BLOCKER") | .count')
           critical=$(echo $issues | jq 'select(.val=="CRITICAL") | .count')
-          major=$(echo $issues | jq 'select(.val=="MAJOR") | .count
+          major=$(echo $issues | jq 'select(.val=="MAJOR") | .count')
           echo "Blocker Issues: $blocker"
           echo "Critical Issues: $critical" 
           echo "Major Issues: $major"
