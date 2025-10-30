@@ -52,7 +52,7 @@ jobs:
           severities=$(curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search?branch=main&componentKeys=${{ github.event.repository.name }}&facets=severities' | jq '.facets[0].values')
           echo "Severities: $severities"
           issues=$(echo $severities | jq 'select(.val=="BLOCKER" or .val=="CRITICAL" or .val=="MAJOR")')
-          blocker=$(echo $issues | jq 'select(.val=="BLOCKER") | .count')
+          blocker=$(echo $issues | jq '.[] | select(.val=="BLOCKER") | .count')
           echo "Blocker Issues: $blocker"
 #          critical=$(echo $issues | jq 'select(.val=="CRITICAL") | .count')
 #          major=$(echo $issues | jq 'select(.val=="MAJOR") | .count')
