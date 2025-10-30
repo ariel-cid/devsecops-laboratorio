@@ -12,6 +12,18 @@ jobs:
         run: |
           echo "Curso DevSecOps"
           echo "Laboratorio Final"
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
+
       - name: Validating existence of project in Sonarcloud
         id: validate-project-sonar
         run: |
@@ -26,17 +38,6 @@ jobs:
             curl -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}'
           fi
 
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install dependencies
-        run: npm ci
-      - name: Build project
-        run: npm run build
-
       - name: Executing Sonarcloud
         run: |
           npx sonar-scanner \
@@ -48,7 +49,8 @@ jobs:
 
       - name: Validating Sonarcloud results
         run: |
-          issues=$(curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search?branch=main&componentKeys=${{ github.event.repository.name }}&facets=severities' | jq '.facets[0].values[] | select(.val=="BLOCKER" or .val=="CRITICAL" or .val=="MAJOR")')
+          severities=$(curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search?branch=main&componentKeys=${{ github.event.repository.name }}&facets=severities' | jq '.facets[0].values[]')
+          issues=$severities | jq 'select(.val=="BLOCKER" or .val=="CRITICAL" or .val=="MAJOR")'
           blocker=$(echo $issues | jq 'select(.val=="BLOCKER") | .count')
           critical=$(echo $issues | jq 'select(.val=="CRITICAL") | .count')
           major=$(echo $issues | jq 'select(.val=="MAJOR") | .count
