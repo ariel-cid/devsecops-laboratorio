@@ -1,4 +1,4 @@
-name: Lab Final Workflow
+name: Laboratorio Final Workflow
 on:
   push:
     branches:
