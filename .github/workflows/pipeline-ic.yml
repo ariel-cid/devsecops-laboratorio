@@ -56,4 +56,11 @@ jobs:
           critical=$(echo $severities | jq '.[] | select(.val=="CRITICAL") | .count')
           echo "Critical Issues: $critical"
           major=$(echo $severities | jq '.[] | select(.val=="MAJOR") | .count')
-          echo "Major Issues: $major"                   
+          echo "Major Issues: $major" 
+          
+          if [ "$critical" -gt 0 ]; then
+            echo "Análisis SAST - Se encontraron issues de seguridad. Pipeline se quiebra."
+            exit 1
+          else
+            echo "Análisis SAST - No se encontraron issues de seguridad. Pipeline continua."
+          fi
