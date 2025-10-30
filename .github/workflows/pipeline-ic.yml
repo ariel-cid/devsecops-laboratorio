@@ -28,7 +28,6 @@ jobs:
 
       - name: Checkout Code
         uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -37,6 +36,7 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
+
       - name: Executing Sonarcloud
         run: |
           npx sonar-scanner \
@@ -45,3 +45,8 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}\
             -Dsonar.branch.name=main
+
+      - name: Validating Sonarcloud results
+        run: |
+          issue-validate={curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search?branch=main&componentKeys=${{ github.event.repository.name}}&facets=severities'} 
+          echo "Results: $issue-validate"
