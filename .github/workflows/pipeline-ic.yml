@@ -49,7 +49,7 @@ jobs:
 
       - name: Validating Sonarcloud results
         run: |
-          severities=$(curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search?branch=main&componentKeys=${{ github.event.repository.name }}&facets=severities' | jq '.facets[0].values[]')
+          severities=$(curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search?branch=main&componentKeys=${{ github.event.repository.name }}&facets=severities' | jq '.facets[0].values')
           issues=$severities | jq 'select(.val=="BLOCKER" or .val=="CRITICAL" or .val=="MAJOR")'
           blocker=$(echo $issues | jq 'select(.val=="BLOCKER") | .count')
           critical=$(echo $issues | jq 'select(.val=="CRITICAL") | .count')
