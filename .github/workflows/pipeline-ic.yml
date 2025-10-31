@@ -93,12 +93,12 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: dependency-check-report
-          path: ${{ github.workspace}}/reports
+          path: ${{ github.workspace }}/reports
       
       - name: Upload Artifact
         uses: actions/upload-artifact@master
         with:
           name: devsec-laboratorio-build
-          path: ${{ github.workspace}}/functions/lib
+          path: ${{ github.workspace }}/functions/lib
 
 
