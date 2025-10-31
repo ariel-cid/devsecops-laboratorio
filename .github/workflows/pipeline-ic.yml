@@ -99,6 +99,6 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: devsec-laboratorio-build
-          path: ${{ github.workspace}}/dist/
+          path: ${{ github.workspace}}/lib/
 
 
