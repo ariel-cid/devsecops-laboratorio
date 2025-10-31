@@ -104,4 +104,17 @@ jobs:
           name: devsec-laboratorio-build
           path: ${{ github.workspace }}/functions/
 
+  DockerBuild:
+    needs: SCA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: Artifact File
+          path: ${{github.workspace}}/
+
 
