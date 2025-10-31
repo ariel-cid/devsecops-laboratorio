@@ -15,14 +15,6 @@ jobs:
 
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install dependencies
-        run: npm ci
-      - name: Build project
-        run: npm run build
 
       - name: Validating existence of project in Sonarcloud
         id: validate-project-sonar
@@ -64,3 +56,9 @@ jobs:
           else
             echo "Análisis SAST - No se encontraron issues de seguridad. Pipeline continua."
           fi
+
+  SCA:
+    needs: SAST
+    runs-on: ubuntu-latest
+    
+
