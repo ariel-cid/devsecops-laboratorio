@@ -15,7 +15,7 @@ jobs:
           echo "SAST with Sonarcloud"
 
       - name: Checkout Code
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@v6
 
       - name: Validating existence of project in Sonarcloud
         id: validate-project-sonar
@@ -68,9 +68,9 @@ jobs:
           echo "Laboratorio Final"
           echo "SCA with Dependency Check"
       - name: Checkout Code
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@v6
       - name: Setup Node.js
-        uses: actions/setup-node@v6.0.0
+        uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: Install dependencies
