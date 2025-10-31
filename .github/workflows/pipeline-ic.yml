@@ -117,11 +117,11 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build --tag ${{ secrets.DOCKER_USER }}/devsecops-laboratorio:latest .
-          ls -la ${{ github.workspace }}
 
       - name: Analyze Docker Image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
+          image-ref: ${{ secrets.DOCKER_USER }}/devsecops-laboratorio:latest
           format: 'table'
           exit-code: '1'
           vuln-type: 'os,library'
