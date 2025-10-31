@@ -8,10 +8,11 @@ jobs:
   SAST:
     runs-on: ubuntu-latest
     steps:
-      - name: Welcome Title
+      - name: Curso Dev SecOps - Laboratorio Final - SAST with Sonarcloud
         run: |
           echo "Curso DevSecOps"
           echo "Laboratorio Final"
+          echo "SAST with Sonarcloud"
 
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -60,5 +61,10 @@ jobs:
   SCA:
     needs: SAST
     runs-on: ubuntu-latest
-    
+    steps:
+      - name: Curso Dev SecOps - Laboratorio Final
+        run: |
+          echo "Curso DevSecOps"
+          echo "Laboratorio Final"
+          echo "SCA with Dependency Check"
 
