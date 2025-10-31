@@ -78,9 +78,6 @@ jobs:
       - name: Build project
         run: |
           npm run build
-          ls -la '${{ github.workspace }}/'
-          ls -la '${{ github.workspace }}/functions/'
-
       - name: Run OWASP Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
         with:
@@ -104,7 +101,7 @@ jobs:
           name: devsec-laboratorio-build
           path: ${{ github.workspace }}/functions/
 
-  DockerBuild:
+  DOCKER-BUILD:
     needs: SCA
     runs-on: ubuntu-latest
     steps:
@@ -114,7 +111,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: Artifact File
+          name: devsec-laboratorio-build
           path: ${{github.workspace}}/
 
 
