@@ -74,7 +74,7 @@ jobs:
         with:
           node-version: 22
       - name: Install dependencies
-        run: npm install --package-lock
+        run: npm install --package-lock-only
       - name: Build project
         run: npm run build
 
@@ -88,4 +88,10 @@ jobs:
           args:
             --failOnCVSS 7
             --enableRetired
+
+      - name: Upload OWAS Dependency Check Report
+        uses: actions/upload-artifact@master
+        with:
+          name: dependency-check-report
+          path: ${{ github.workspace}}/reports
 
