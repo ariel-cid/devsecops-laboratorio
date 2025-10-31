@@ -86,10 +86,11 @@ jobs:
           format: 'HTML'
           out: 'reports'
           args:
-            --failOnCVSS 7
+            --failOnCVSS 4
             --enableRetired
 
       - name: Upload OWASP Dependency Check Report
+        if: always()
         uses: actions/upload-artifact@master
         with:
           name: dependency-check-report
