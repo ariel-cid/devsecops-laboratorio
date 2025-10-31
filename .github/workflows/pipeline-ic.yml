@@ -117,7 +117,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build --tag ${{ secrets.DOCKER_USER }}/devsecops-laboratorio:latest .
-
+          ls -la ${{ github.workspace }}
 
       - name: Analyze Docker Image with Trivy
         uses: aquasecurity/trivy-action@master
