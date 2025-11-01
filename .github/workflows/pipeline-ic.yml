@@ -58,7 +58,7 @@ jobs:
           # Breaking pipeline in case of issues found
           if [ "$blocker" -gt 0 ] || [ "$critical" -gt 0 ] || [ "$major" -gt 0 ]; then
             echo "Análisis SAST - Se encontraron issues de seguridad. Pipeline se quiebra."
-            #exit 1
+            exit 1
           else
             echo "Análisis SAST - No se encontraron issues de seguridad. Pipeline continua."
           fi
