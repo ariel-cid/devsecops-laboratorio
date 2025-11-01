@@ -2,6 +2,7 @@ name: Laboratorio Final Workflow
 on:
   push:
     branches:
+      - main
       - feature/*
 
 jobs:
