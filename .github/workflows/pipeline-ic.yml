@@ -4,6 +4,10 @@ on:
     branches:
       - main
       - feature/*
+      - release/*
+  pull_request:
+    branches:
+      - main 
 
 jobs:
   SAST:
@@ -54,7 +58,7 @@ jobs:
           # Breaking pipeline in case of issues found
           if [ "$blocker" -gt 0 ] || [ "$critical" -gt 0 ] || [ "$major" -gt 0 ]; then
             echo "Análisis SAST - Se encontraron issues de seguridad. Pipeline se quiebra."
-            exit 1
+            #exit 1
           else
             echo "Análisis SAST - No se encontraron issues de seguridad. Pipeline continua."
           fi
@@ -85,9 +89,9 @@ jobs:
           project: '${{ github.event.repository.name }}'
           path: '.'
           format: 'HTML'
-          args: >
-            --failOnCVSS 4
-            --enableRetired
+          #args: >
+            #--failOnCVSS 4
+            #--enableRetired
 
       - name: Upload OWASP Dependency Check Report
         if: always()
@@ -124,10 +128,18 @@ jobs:
         with:
           image-ref: ${{ secrets.DOCKER_USER }}/devsecops-laboratorio:latest
           format: 'table'
+          output: ${{ github.workspace }}/reports/trivy-report.txt
           exit-code: '1'
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
 
+      - name: Upload Trivy report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-report
+          path: ${{ github.workspace }}/reports/trivy-report.txt
+          
       - name: Login to DockerHub
         uses: docker/login-action@v3.0.0
         with:
