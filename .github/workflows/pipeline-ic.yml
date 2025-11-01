@@ -128,7 +128,7 @@ jobs:
         with:
           image-ref: ${{ secrets.DOCKER_USER }}/devsecops-laboratorio:latest
           format: 'table'
-          output: ${{ github.workspace }}/reports/trivy-report.txt
+          output: ${{ github.workspace }}/trivy-report.txt
           exit-code: '1'
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
@@ -138,7 +138,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: trivy-report
-          path: ${{ github.workspace }}/reports/trivy-report.txt
+          path: ${{ github.workspace }}/trivy-report.txt
           
       - name: Login to DockerHub
         uses: docker/login-action@v3.0.0
