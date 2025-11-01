@@ -85,9 +85,9 @@ jobs:
           project: '${{ github.event.repository.name }}'
           path: '.'
           format: 'HTML'
-          #args: >
-            #--failOnCVSS 4
-            #--enableRetired
+          args: >
+            --failOnCVSS 4
+            --enableRetired
 
       - name: Upload OWASP Dependency Check Report
         if: always()
