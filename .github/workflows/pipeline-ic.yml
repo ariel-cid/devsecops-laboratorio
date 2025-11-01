@@ -127,7 +127,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ secrets.DOCKER_USER }}/devsecops-laboratorio:latest
-          format: 'table'
+          format: 'sarif'
           output: ${{ github.workspace }}/trivy-report.txt
           exit-code: '1'
           vuln-type: 'os,library'
